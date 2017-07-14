@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+    <!-- 读取配置文件并解密密码 -->
+	<bean id="propertyConfigurer" class="org.jasypt.spring31.properties.EncryptablePropertyPlaceholderConfigurer">
+	    <constructor-arg ref="configurationEncryptor" />
+	    <property name="locations">
+	        <array>
+	            <value>classpath:dbconfig.properties</value>
+	        </array>
+	    </property>
+	</bean>
+    
+    <bean id="configurationEncryptor" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
+	    <property name="config" ref="environmentVariablesConfiguration" />
+	</bean>
+	
+	<bean id="environmentVariablesConfiguration" class="org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig">
+	    <property name="algorithm" value="PBEWithMD5AndDES" />
+	    <property name="password" value="tinymore" />
+	</bean>
+    
+    
+     <import resource="classpath:spring-mybatis.xml"/>
+     
+     <context:component-scan base-package="com.tinymore.ems.service" />
+     
+</beans>
