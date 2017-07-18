@@ -12,6 +12,12 @@
 		<spring.version>4.3.4.RELEASE</spring.version>
 	</properties>
 	<dependencies>
+		<!-- 主要用于HTML静态页面  by张峻铭 20170509 -->
+		<dependency>
+		    <groupId>org.freemarker</groupId>
+		    <artifactId>freemarker</artifactId>
+		    <version>2.3.26-incubating</version>
+		</dependency>
 		<dependency>
 			<groupId>org.glassfish.jersey.containers</groupId>
 			<artifactId>jersey-container-servlet</artifactId>
